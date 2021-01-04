@@ -20,20 +20,19 @@ app.use(bodyParser.json());
 
 app.use('/api/user', authRoute);  
 
-app.use(errorController.get404); 
+app.use(errorController.get404);
  
 // connectMongo(() => {
 //     console.log('server started...');
 //     app.listen(3000);
 // })
 
-mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.DB_CONNECT)
 .then(result => {
     console.log('connected to remote DB mongo !!!! ')
     console.log('server started...');
     app.listen(3000, () => { console.log('Server is running ...')});
 })
 .catch((error) => {
-    console.log('Cannot connect to Database !'); 
     console.log(error); 
-}); 
+});

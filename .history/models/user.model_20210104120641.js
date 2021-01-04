@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
         require: false,
         max: 1028
     },
-    phoneNumber : { 
+    phoneNumber : {
         type: String,
         require: true
     },

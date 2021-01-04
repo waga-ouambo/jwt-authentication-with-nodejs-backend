@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 
 app.use('/api/user', authRoute);  
 
-app.use(errorController.get404); 
+app.use(errorController.get404);
  
 // connectMongo(() => {
 //     console.log('server started...');
@@ -34,6 +34,5 @@ mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopol
     app.listen(3000, () => { console.log('Server is running ...')});
 })
 .catch((error) => {
-    console.log('Cannot connect to Database !'); 
     console.log(error); 
 }); 

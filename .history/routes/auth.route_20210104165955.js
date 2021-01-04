@@ -5,7 +5,7 @@ const route = express.Router();
 
 const authRoute = require('../controllers/auth.controller');
 
-const {checkRegisterData} = require('../middlewares/auth.middleware');
+const checkRegisterData = require('../middlewares/auth.middleware').checkRegisterData;
 
 
 
@@ -13,6 +13,6 @@ const {checkRegisterData} = require('../middlewares/auth.middleware');
 route.get('/login', authRoute.getLogin);
 route.post('/login', authRoute.postLogin );
 route.get('/register', authRoute.getRegister);
-route.post('/register', checkRegisterData, authRoute.postRegister);
+route.post('/register', authRoute.postRegister);
 
 module.exports = route;

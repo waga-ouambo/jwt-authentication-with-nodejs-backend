@@ -34,6 +34,5 @@ mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopol
     app.listen(3000, () => { console.log('Server is running ...')});
 })
 .catch((error) => {
-    console.log('Cannot connect to Database !'); 
     console.log(error); 
 }); 

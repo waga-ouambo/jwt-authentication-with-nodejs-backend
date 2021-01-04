@@ -5,7 +5,7 @@ const route = express.Router();
 
 const authRoute = require('../controllers/auth.controller');
 
-const {checkRegisterData} = require('../middlewares/auth.middleware');
+const checkRegisterData = require('../middlewares/auth.middleware').checkRegisterData;
 
 
 
