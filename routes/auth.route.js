@@ -5,13 +5,13 @@ const route = express.Router();
 
 const authRoute = require('../controllers/auth.controller');
 
-const {checkRegisterData} = require('../middlewares/auth.middleware');
+const {checkRegisterData, checkLoginData} = require('../middlewares/auth.middleware');
 
 
 
 
 route.get('/login', authRoute.getLogin);
-route.post('/login', authRoute.postLogin );
+route.post('/login', checkLoginData, authRoute.postLogin );
 route.get('/register', authRoute.getRegister);
 route.post('/register', checkRegisterData, authRoute.postRegister);
 

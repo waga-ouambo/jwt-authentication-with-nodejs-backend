@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express'); 
 const bodyParser = require('body-parser'); 
 const authRoute = require('./routes/auth.route'); 
+const postRoute = require('./routes/post.route');
 const errorController = require('./controllers/error.controller') ;
 const connectMongo = require('./helpers/database').connectMongo;
 
@@ -14,11 +15,12 @@ const mongoose = require('mongoose');
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
-// app.use(express.json()); // express.json() === bodyParser.json()
-app.use(bodyParser.json());
+app.use(express.json()); // express.json() === bodyParser.json()
+// app.use(bodyParser.json());
 
 
 app.use('/api/user', authRoute);  
+app.use('/api/post', postRoute);  
 
 app.use(errorController.get404); 
  
