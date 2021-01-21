@@ -10,6 +10,8 @@ const {checkRegisterData, checkLoginData} = require('../middlewares/auth.middlew
 
 
 
+
+
 route.get('/login', authRoute.getLogin);
 route.post('/login', checkLoginData, authRoute.postLogin );
 route.get('/register', authRoute.getRegister);

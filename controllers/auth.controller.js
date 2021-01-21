@@ -19,7 +19,11 @@ console.log(req.body.email);
 
     // Checking if the email user already exist
     const emailExist = await User.findOne({email: req.body.email});
-    if(emailExist) return res.status(400).send('Email alreasy exist !');
+    if(emailExist) return res.status(400).send('Email already exist !');
+
+    // Checking if the userName already exist
+    const userNameExist = await User.findOne({userName: req.body.userName});
+    if(userNameExist) return res.status(400).send('UserName already exist !');
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
@@ -34,7 +38,7 @@ console.log(req.body.email);
 
     try{ 
        const usr = await user.save();
-       return res.status(401).send(usr); 
+       return res.status(201).send(usr); 
     }
     catch(error){
         console.log(error);
@@ -47,7 +51,7 @@ console.log(req.body.email);
 } ;
 
 exports.postLogin = async (req, res, next) => {
-
+    console.log(req.body.email);
     try{ 
         // Checking if the email user already exist
         const userExist = await User.findOne({email: req.body.email});
@@ -58,7 +62,7 @@ exports.postLogin = async (req, res, next) => {
         if(!validPassword) return res.status(400).send('Email or password is wrong !');
 
         //Create and assing token 
-        const token = jwt.sign({_id: userExist._id, userName: userExist.userName}, process.env.SECRET_TOKEN);
+        const token = jwt.sign({_id: userExist._id, userName: userExist.userName}, process.env.SECRET_TOKEN, {  expiresIn : 60 });
         res.header('auth-token', token).send(token); 
      }
      catch(error){

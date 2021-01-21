@@ -1,0 +1,4 @@
+::1 - - [21/Jan/2021:22:37:30 +0000] "OPTIONS /api/post/list HTTP/1.1" 200 8 "http://localhost:3001/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+::1 - - [21/Jan/2021:22:37:30 +0000] "GET /api/post/list HTTP/1.1" 400 15 "http://localhost:3001/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+::1 - - [21/Jan/2021:23:12:31 +0000] "OPTIONS /api/post/list HTTP/1.1" 200 8 "http://localhost:3001/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+::1 - - [21/Jan/2021:23:12:31 +0000] "GET /api/post/list HTTP/1.1" 400 15 "http://localhost:3001/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"

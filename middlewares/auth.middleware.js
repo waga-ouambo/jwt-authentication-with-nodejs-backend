@@ -6,10 +6,11 @@ const jwt = require('jsonwebtoken');
 module.exports.checkRegisterData = (req, res, next) => {  
 
         let schema = joi.object().keys({
-            email: joi.string().required().email(), 
-            phoneNumber: joi.string().required().min(4),
-            userName: joi.string().required(),
-            password: joi.string().required()
+            email: joi.string().trim().required().lowercase().email(), 
+            phoneNumber: joi.number().required().min(4),
+            userName: joi.string().alphanum().trim().required(),
+            password: joi.string().required().alphanum(),
+            confirmPassword: joi.string().alphanum()
         });
 
         let {error} = joi.validate(req.body, schema);
@@ -24,8 +25,8 @@ module.exports.checkRegisterData = (req, res, next) => {
 module.exports.checkLoginData = (req, res, next) => {  
 
         let schema = joi.object().keys({
-            email: joi.string().required().email(),  
-            password: joi.string().required()
+            email: joi.string().trim().required().lowercase().email(),  
+            password: joi.string().required().min(4)
         }); 
         let {error} = joi.validate(req.body, schema);
 
@@ -44,7 +45,7 @@ module.exports.verifyToken = (req, res, next) => {
          
            console.log(process.env.SECRET_TOKEN);
 
-                const verifyToken = jwt.verify(token, process.env.SECRET_TOKEN, { algorithms: ['HS256'], ignoreExpiration: true });
+                const verifyToken = jwt.verify(token, process.env.SECRET_TOKEN, { algorithms: ['HS256'], ignoreExpiration: false });
                 req.user = verifyToken; 
                 next();
          }
