@@ -49,7 +49,8 @@ app.use((req, res, next) => {
 
 
 app.use('/api/user', authRoute);  
-app.use('/api/post', postRoute);  
+app.use('/api/post', postRoute);
+app.use('/', postRoute); 
 
 app.use(errorController.get404); 
 
@@ -65,7 +66,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
 .then(result => {
     console.log('connected to remote DB mongo !!!! ')
     console.log('server started...');
-    app.listen(process.env.SERVER_PORT || 3000, () => { console.log('Server is running ...')});
+    app.listen(process.env.SERVER_PORT || 3000, () => { console.log('Server is running ' +process.env.SERVER_PORT+'...')});
 })
 .catch((error) => {
     console.log('Cannot connect to Database !'); 

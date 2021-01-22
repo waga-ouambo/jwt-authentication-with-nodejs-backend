@@ -11,5 +11,6 @@ const {verifyToken} = require('../middlewares/auth.middleware');
 
 
 route.get('/list', verifyToken, postRoute.getPost); 
+route.get('/', postRoute.getPost); 
 
 module.exports = route;
