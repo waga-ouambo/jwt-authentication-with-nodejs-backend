@@ -12,6 +12,11 @@ const path = require('path');
 const fs = require('fs');
 const morgan = require('morgan');
 
+const graphqlHttp = require('express-graphql').graphqlHTTP;
+
+const graphqlShema = require('./graphgl/schema');
+const graphqlResolver = require('./graphgl/resolvers');
+
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'acces.log'), 
 {flag: 'a'});
 
@@ -46,7 +51,13 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, auth-token, agent, visitorId');
     next();
 })
-
+ 
+app.use(
+    '/graphql', 
+    graphqlHttp({
+    schema: graphqlShema,
+    rootValue: graphqlResolver
+}))
 
 app.use('/api/user', authRoute);  
 app.use('/api/post', postRoute);
