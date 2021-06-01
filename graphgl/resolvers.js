@@ -1,14 +1,18 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const {checkRegisterData, checkLoginDataGraphql, checkRegisterDataGraphql} = require('../middlewares/auth.middleware');
+const authRoute = require('../controllers/auth.controller');
 
 module.exports = {
 
-    // hello() {
-    //     return {text: 'Hello World !', views: 10}
-    // }, 
-    logino: async function({ email, password }) {
+    hello() {
+        return {text: 'Hello World !', views: 10}
+    }, 
+    logino: async function({ email, password }, req) {
+      checkLoginDataGraphql({ email, password})
         console.log(email);
+        console.log(req.body);
         try{ 
             // Checking if the email user already exist
             const userExist = await User.findOne({email: email});
@@ -22,8 +26,8 @@ module.exports = {
             const token = jwt.sign({_id: userExist._id, userName: userExist.userName}, process.env.SECRET_TOKEN, {  expiresIn : 60 });
             // res.header('auth-token', token).send(token); 
             return {
-                text: 'azer',
-                views: 900
+                token: token,
+                userId: userExist._id
             }
          }
          catch(error){
@@ -34,10 +38,15 @@ module.exports = {
      
     } ,
 
+    createUser: async function({ userInput }, req) {
+      checkRegisterDataGraphql(userInput)
+     return await authRoute.postRegisterGraphql(userInput, req);
+    } , 
     
     
-  createUser: async function({ userInput }, req) {
+  createUser2: async function({ userInput }, req) {
     //   const email = args.userInput.email;
+    console.log(userInput)
     const errors = [];
     if (!validator.isEmail(userInput.email)) {
       errors.push({ message: 'E-Mail is invalid.' });
@@ -68,6 +77,7 @@ module.exports = {
     const createdUser = await user.save();
     return { ...createdUser._doc, _id: createdUser._id.toString() };
   },
+
   login: async function({ email, password }) {
     const user = await User.findOne({ email: email });
     if (!user) {
