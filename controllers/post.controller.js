@@ -27,10 +27,19 @@ exports.getPost = async (req, res, next) => {
     //   })
 
     // const client = await pool.connect()
-    // const result = await client.query({
-    // text: 'SELECT * from ville',
-    // })
+
+    //  const query = 'SELECT * from ville' ;
+
+    // try { 
+    //     const result = await client.query(query);
+    //     console.log('Table is successfully created');
+    //     res.json(result.rows)
+    // } catch (err) {
+    //     console.log(err.stack);
+    // } finally {
+    //     client.end();
+    // }
        
-    //   res.json(result.rows)
+     
  
 } ;
