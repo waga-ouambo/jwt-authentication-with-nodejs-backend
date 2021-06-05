@@ -74,3 +74,39 @@ exports.postLogin = async (req, res, next) => {
     
  
 } ;
+
+
+// =======================================================================================================
+
+exports.postRegisterGraphql = async (payload, req) => {
+    console.log(payload.email);
+    
+        // Checking if the email user already exist
+        const emailExist = await User.findOne({email: payload.email});
+        if(emailExist) throw Error('Email already exist !') ;
+    
+        // Checking if the userName already exist
+        const userNameExist = await User.findOne({userName: payload.userName});
+        if(userNameExist) throw Error('UserName already exist !') ; 
+    
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(payload.password, salt);
+    
+        const user = new User({
+            email: payload.email,
+            userName: payload.userName,
+            phoneNumber: payload.phoneNumber, 
+            password: hashPassword 
+        });
+    
+        try{ 
+           const usr = await user.save();
+           return usr; 
+        }
+        catch(error){
+            console.log(error);
+            // res.status(400).send(error);
+            throw error;
+        } 
+    } ;

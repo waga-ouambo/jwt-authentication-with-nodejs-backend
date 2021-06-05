@@ -1,3 +1,6 @@
+const { Pool, Client } = require('pg')
+const connectionString = 'postgresql://postgres:cesame@localhost:5432/tchapah'
+
 
 
 
@@ -18,5 +21,16 @@ exports.getPost = async (req, res, next) => {
 
         ]
     }); 
+
+    // const pool = new Pool({
+    //     connectionString,
+    //   })
+
+    // const client = await pool.connect()
+    // const result = await client.query({
+    // text: 'SELECT * from ville',
+    // })
+       
+    //   res.json(result.rows)
  
 } ;

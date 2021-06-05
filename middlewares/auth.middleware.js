@@ -55,3 +55,38 @@ module.exports.verifyToken = (req, res, next) => {
          } 
        
 }
+
+// ============================================================================
+
+
+module.exports.checkLoginDataGraphql = (inputData) => {  
+
+    let schema = joi.object().keys({
+        email: joi.string().trim().required().lowercase().email(),  
+        password: joi.string().required().min(4)
+    }); 
+    let {error} = joi.validate(inputData, schema);
+
+    if(error){  
+        throw new Error(error.details[0].message);
+    }  
+}
+
+
+
+module.exports.checkRegisterDataGraphql = (inputData) => {  
+
+    let schema = joi.object().keys({
+        email: joi.string().trim().required().lowercase().email(), 
+        phoneNumber: joi.number().required().min(4),
+        userName: joi.string().alphanum().trim().required(),
+        password: joi.string().required().alphanum(),
+        confirmPassword: joi.string().alphanum()
+    });
+
+    let {error} = joi.validate(inputData, schema);
+
+    if(error){ 
+         throw new Error(error.details[0].message);
+    } 
+}
